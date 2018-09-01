@@ -7,7 +7,7 @@ public class Message {
 	/**
 	 * 主键
 	 */
-	private String id;
+	private int id;
 	/**
 	 * 指令名称
 	 */
@@ -21,11 +21,11 @@ public class Message {
 	 */
 	private String content;
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

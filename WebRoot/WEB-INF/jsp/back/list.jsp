@@ -3,6 +3,8 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<!-- 引入jstl的c标签 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -20,11 +22,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<table class="tab1">
 						<tbody>
 							<tr>
-								<td width="90" align="right">演示字段1：</td>
+								<td width="90" align="right">指令名称：</td>
 								<td>
 									<input type="text" class="allInput" value=""/>
 								</td>
-								<td width="90" align="right">演示字段2：</td>
+								<td width="90" align="right">描述：</td>
 								<td>
 									<input type="text" class="allInput" value=""/>
 								</td>
@@ -38,50 +40,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<tr>
 								    <th><input type="checkbox" id="all" onclick="#"/></th>
 								    <th>序号</th>
-								    <th>演示字段1</th>
-								    <th>演示字段2</th>
+								    <th>指令名称</th>
+								    <th>描述</th>
 								    <th>操作</th>
 								</tr>
-								<tr>
-									<td><input type="checkbox" /></td>
-									<td>1</td>
-									<td>演示值1</td>
-									<td>演示值2</td>
-									<td>
-										<a href="#">修改</a>&nbsp;&nbsp;&nbsp;
-										<a href="#">删除</a>
-									</td>
-								</tr>
-								<tr style="background-color:#ECF6EE;">
-									<td><input type="checkbox" /></td>
-									<td>2</td>
-									<td>演示值1</td>
-									<td>演示值2</td>
-									<td>
-										<a href="#">修改</a>&nbsp;&nbsp;&nbsp;
-										<a href="#">删除</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" /></td>
-									<td>3</td>
-									<td>演示值1</td>
-									<td>演示值2</td>
-									<td>
-										<a href="#">修改</a>&nbsp;&nbsp;&nbsp;
-										<a href="#">删除</a>
-									</td>
-								</tr>
-								<tr style="background-color:#ECF6EE;">
-									<td><input type="checkbox" /></td>
-									<td>4</td>
-									<td>演示值1</td>
-									<td>演示值2</td>
-									<td>
-										<a href="#">修改</a>&nbsp;&nbsp;&nbsp;
-										<a href="#">删除</a>
-									</td>
-								</tr>
+								<c:forEach items="${messageList}" var="message" varStatus="status">
+									
+									<tr <c:if test="${status.index % 2 != 0}">style="background-color:#ECF6EE;"</c:if>>
+										<td><input type="checkbox" /></td>
+										<td>${status.index +1}</td>
+										<td>${message.command}</td>
+										<td>${message.description}</td>
+										<td>
+											<a href="#">修改</a>&nbsp;&nbsp;&nbsp;
+											<a href="#">删除</a>
+										</td>
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 						<div class='page fix'>

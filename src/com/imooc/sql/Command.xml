@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.sql.Command">
+	<resultMap type="com.imooc.bean.Command" id="CommandResult">
+		<id column="cd_id" jdbcType="INTEGER" property="id"/>
+		<result column="name" jdbcType="VARCHAR" property="name"/>
+		<result column="description" jdbcType="VARCHAR" property="description"/>
+		<collection property="contentList" resultMap="com.imooc.sql.CommandContent.CommandContentResult"/>
+	</resultMap>
+	
+	<select id="queryCommandList" resultMap="CommandResult" >
+		select 
+			 cd.id          	AS      cd_id
+			,cd.name			AS		name
+			,cd.description		AS		description
+			,cc.id				AS		cc_id
+			,cc.content			AS		content
+			,cc.command_id		AS		command_id
+		 from 
+		 	command cd
+		 inner join  
+		 	command_content cc
+		 on 
+		 	cd.id=cc.command_id
+	</select>
+</mapper>
