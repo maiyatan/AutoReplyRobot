@@ -8,32 +8,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.imooc.bean.Command;
-import com.imooc.service.CommandService;
-
+import com.imooc.bean.CommandContent;
+import com.imooc.service.CommandContentService;
 /**
- * 页面初始化处理
- * 
+ * 修改页操作
  * @author youtan
  *
  */
-public class ListServlet extends HttpServlet {
+public class UpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 接收页面传过来的参数
+		String id = req.getParameter("id");
 		String name = req.getParameter("name");
 		String description = req.getParameter("description");
 		// 向页面传值。目的是：搜索栏保存查询条件
 		req.setAttribute("name", name);
 		req.setAttribute("description", description);
-
-		CommandService messageService = new CommandService();
-		List<Command> commandList = messageService.queryMessageList(name, description);
-		req.setAttribute("commandList", commandList);
+		// 数据库操作
+		CommandContentService commandContentService =new CommandContentService();
+		List<CommandContent> CommandContentList = commandContentService.queryCommandContentList(id);
+		// 将CommandContentList放到JavaBean中，给jsp用
+		req.setAttribute("CommandContentList", CommandContentList);
 		// 页面跳转
-		req.getRequestDispatcher("/WEB-INF/jsp/back/list.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/jsp/back/update.jsp").forward(req, resp);
 	}
 
 	@Override

@@ -25,7 +25,15 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
   
-
+<!-- 修改 -->
+<servlet>
+	<servlet-name>UpdateServlet</servlet-name>
+	<servlet-class>com.imooc.servlet.UpdateServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>UpdateServlet</servlet-name>
+	<url-pattern>/Update.action</url-pattern>
+</servlet-mapping>
     
 <!-- 列表页面初始化设置 -->
 <servlet>

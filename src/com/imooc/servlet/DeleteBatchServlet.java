@@ -1,39 +1,30 @@
 package com.imooc.servlet;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.imooc.bean.Command;
 import com.imooc.service.CommandService;
 
 /**
- * 页面初始化处理
+ * 批量删除
  * 
  * @author youtan
  *
  */
-public class ListServlet extends HttpServlet {
+public class DeleteBatchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 接收页面传过来的参数
-		String name = req.getParameter("name");
-		String description = req.getParameter("description");
-		// 向页面传值。目的是：搜索栏保存查询条件
-		req.setAttribute("name", name);
-		req.setAttribute("description", description);
+		String[] ids = req.getParameterValues("id");
 
-		CommandService messageService = new CommandService();
-		List<Command> commandList = messageService.queryMessageList(name, description);
-		req.setAttribute("commandList", commandList);
+		CommandService commandService = new CommandService();
+		commandService.deleteBatch(ids);
 		// 页面跳转
-		req.getRequestDispatcher("/WEB-INF/jsp/back/list.jsp").forward(req, resp);
+		req.getRequestDispatcher("/List.action").forward(req, resp);
 	}
 
 	@Override
@@ -41,5 +32,4 @@ public class ListServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		this.doGet(req, resp);
 	}
-
 }

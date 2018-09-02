@@ -2,7 +2,8 @@
  * 调用后台批量删除方法
  */
 function deleteBatch(basePath) {
-	$("#mainForm").attr("action",basePath + "DeleteBatchServlet.action");
+	// 动态修改调用的路径。目的：跳转到批量删除的servlet
+	$("#mainForm").attr("action",basePath + "DeleteBatch.action");
 	$("#mainForm").submit();
 }
 

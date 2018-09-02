@@ -18,7 +18,6 @@
     
     <!-- 注册mapper -->
     <mappers>
-   		 <mapper resource="com/imooc/sql/Message.xml"/>
     	<mapper resource="com/imooc/sql/Command.xml"/>
     	<mapper resource="com/imooc/sql/CommandContent.xml"/>
     </mappers>

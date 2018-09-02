@@ -14,7 +14,7 @@ public class GetSqlSessionTest {
 		List<Command> commandList = new ArrayList<Command>();
 		SqlSession session = connDb.getSqlSession();
 		// 映射sql的标识字符串
-		String statement = "com.imooc.sql.Command.queryCommandList";
+		String statement = "com.imooc.sql.Command.queryMessageList";
 		// 执行查询返回一个唯一user对象的sql
 		commandList = session.selectList(statement);
 		for (Command command : commandList) {
