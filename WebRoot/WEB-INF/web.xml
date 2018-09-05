@@ -45,6 +45,26 @@
 	<url-pattern>/List.action</url-pattern>
 </servlet-mapping>
 
+<!-- 前端talk页面初始化设置 -->
+<servlet>
+	<servlet-name>TalkServlet</servlet-name>
+	<servlet-class>com.imooc.servlet.TalkServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>TalkServlet</servlet-name>
+	<url-pattern>/TalkServlet.action</url-pattern>
+</servlet-mapping>
+
+<!-- 自动回复设置 -->
+<servlet>
+	<servlet-name>AutoReplyServlet</servlet-name>
+	<servlet-class>com.imooc.servlet.AutoReplyServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>AutoReplyServlet</servlet-name>
+	<url-pattern>/AutoReplyServlet.action</url-pattern>
+</servlet-mapping>
+
 <!-- 单条删除设置 -->
 <servlet>
 	<servlet-name>DeleteOneServlet</servlet-name>

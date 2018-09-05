@@ -66,6 +66,10 @@ public class CommandDao {
 
 	/**
 	 * 根据查询条件查询消息列表
+	 * 
+	 * @param name        指令名称
+	 * @param description 描述
+	 * @return
 	 */
 	public List<Command> queryMessageList(String name, String description) {
 		SqlSession session = null;
@@ -91,4 +95,5 @@ public class CommandDao {
 		}
 		return commandList;
 	}
+
 }

@@ -1,7 +1,9 @@
 package com.imooc.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,31 +11,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.imooc.bean.Command;
+import com.imooc.bean.CommandContent;
 import com.imooc.service.CommandService;
 
 /**
- * 页面初始化处理
+ * 自动回复控制层
  * 
  * @author youtan
  *
  */
-public class ListServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
+@SuppressWarnings("serial")
+public class AutoReplyServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("text/html;charset=utf-8");
 		// 接收页面传过来的参数
-		String name = req.getParameter("name");
-		String description = req.getParameter("description");
-		// 向页面传值。目的是：搜索栏保存查询条件
-		req.setAttribute("name", name);
-		req.setAttribute("description", description);
+		String name = req.getParameter("content");
 
 		CommandService commandService = new CommandService();
-		List<Command> commandList = commandService.queryMessageList(name, description);
-		req.setAttribute("commandList", commandList);
-		// 页面跳转
-		req.getRequestDispatcher("/WEB-INF/jsp/back/list.jsp").forward(req, resp);
+		// 根据name查询content列表 需要改
+		List<CommandContent> ContentList = commandService.queryContentListByName(name);
+		PrintWriter out = resp.getWriter();
+		// 产生一个随机数
+		int nextInt = new Random().nextInt(ContentList.size());
+		CommandContent commandContent = ContentList.get(nextInt);
+		// 将content输出
+		out.write(commandContent.getContent());
+		out.flush();
+		out.close();
 	}
 
 	@Override
@@ -41,5 +46,4 @@ public class ListServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		this.doGet(req, resp);
 	}
-
 }

@@ -19,20 +19,36 @@
 		delete from command where id=#{_parameter}
 	</delete>
 
-	<!-- 查询message数据的resultMap -->
+	<!-- 查询Command+Command_Content数据的resultMap -->
 	<resultMap type="com.imooc.bean.Command" id="CommandResult">
-		<id column="id" jdbcType="INTEGER" property="id"/>
+		<id column="cd_id" jdbcType="INTEGER" property="id"/>
 		<result column="name" jdbcType="VARCHAR" property="name"/>
 		<result column="description" jdbcType="VARCHAR" property="description"/>
+		<collection property="contentList" resultMap="com.imooc.sql.CommandContent.CommandContentResult"/>
 	</resultMap>
 	<!-- 查询message数据的select -->
-	<select id="queryMessageList" parameterType="com.imooc.bean.Command"  resultMap="CommandResult">
-		select 
+	<select id="queryMessageList" parameterType="com.imooc.bean.Command"  resultMap="CommandResult" resultType="com.imooc.bean.Command">
+		<!-- select 
 			 id
 			 ,name
 			 ,description
 		 from 
 		 	command
+		 where 1=1
+		  -->
+		 select 
+			 cd.id          	AS      cd_id
+			,cd.name			AS		name
+			,cd.description		AS		description
+			,cc.id				AS		cc_id
+			,cc.content			AS		content
+			,cc.command_id		AS		command_id
+		 from 
+		 	command cd
+		 inner join  
+		 	command_content cc
+		 on 
+		 	cd.id=cc.command_id
 		 where 1=1
 		<if test="name !=null and !&quot;&quot;.equals(name.trim())">
 			and name=#{name}
