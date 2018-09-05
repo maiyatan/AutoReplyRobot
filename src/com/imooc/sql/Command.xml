@@ -27,7 +27,7 @@
 		<collection property="contentList" resultMap="com.imooc.sql.CommandContent.CommandContentResult"/>
 	</resultMap>
 	<!-- 查询message数据的select -->
-	<select id="queryMessageList" parameterType="com.imooc.bean.Command"  resultMap="CommandResult" resultType="com.imooc.bean.Command">
+	<select id="queryMessageList" parameterType="com.imooc.bean.Command"  resultMap="CommandResult">
 		<!-- select 
 			 id
 			 ,name
