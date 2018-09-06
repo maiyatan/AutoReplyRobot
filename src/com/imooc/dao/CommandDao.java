@@ -8,7 +8,7 @@ import com.imooc.bean.Command;
 import com.imooc.db.ConnDb;
 
 /**
- * Message表的数据库处理
+ * Command表的数据库处理
  * 
  * @author youtan
  *

@@ -28,14 +28,6 @@
 	</resultMap>
 	<!-- 查询message数据的select -->
 	<select id="queryMessageList" parameterType="com.imooc.bean.Command"  resultMap="CommandResult">
-		<!-- select 
-			 id
-			 ,name
-			 ,description
-		 from 
-		 	command
-		 where 1=1
-		  -->
 		 select 
 			 cd.id          	AS      cd_id
 			,cd.name			AS		name
@@ -49,12 +41,13 @@
 		 	command_content cc
 		 on 
 		 	cd.id=cc.command_id
-		 where 1=1
-		<if test="name !=null and !&quot;&quot;.equals(name.trim())">
-			and name=#{name}
-		</if>
-		<if test="description !=null and !&quot;&quot;.equals(description.trim())">
-			and description like '%' #{description} '%'
-		</if>
+		 <where>
+			<if test="name !=null and !&quot;&quot;.equals(name.trim())">
+				and name=#{name}
+			</if>
+			<if test="description !=null and !&quot;&quot;.equals(description.trim())">
+				and description like '%' #{description} '%'
+			</if>
+		</where>
 	</select>
 </mapper>

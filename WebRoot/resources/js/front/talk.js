@@ -3,7 +3,7 @@
  */
 $(function(){
 	render();
-	var content = "客官，来啦，坐吧！<br/>回复[查看]收取更多精彩内容。";
+	var content = "客官，来啦，坐吧！";
 	content += "<br/>回复[帮助]可以查看所有可用的指令。";
 	// 添加公众号的开场白
 	appendDialog("talk_recordbox","公众号",content);

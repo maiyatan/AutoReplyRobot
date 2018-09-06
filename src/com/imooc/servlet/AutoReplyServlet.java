@@ -2,17 +2,13 @@ package com.imooc.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.imooc.bean.Command;
-import com.imooc.bean.CommandContent;
-import com.imooc.service.CommandService;
+import com.imooc.service.TalkService;
 
 /**
  * 自动回复控制层
@@ -27,16 +23,13 @@ public class AutoReplyServlet extends HttpServlet {
 		resp.setContentType("text/html;charset=utf-8");
 		// 接收页面传过来的参数
 		String name = req.getParameter("content");
-
-		CommandService commandService = new CommandService();
-		// 根据name查询content列表 需要改
-		List<CommandContent> ContentList = commandService.queryContentListByName(name);
+		TalkService talkService = new TalkService();
 		PrintWriter out = resp.getWriter();
-		// 产生一个随机数
-		int nextInt = new Random().nextInt(ContentList.size());
-		CommandContent commandContent = ContentList.get(nextInt);
+		
+		// 根据name查询content列表
+		String content = talkService.queryContentByName(name);
 		// 将content输出
-		out.write(commandContent.getContent());
+		out.write(content);
 		out.flush();
 		out.close();
 	}
