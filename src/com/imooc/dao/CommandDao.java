@@ -82,10 +82,9 @@ public class CommandDao {
 			command.setDescription(description);
 
 			session = connDb.getSqlSession();
-			// 映射sql的标识字符串
-			String statement = "com.imooc.sql.Command.queryMessageList";
-			// 执行查询返回一个唯一user对象的sql
-			commandList = session.selectList(statement, command);
+			// 使用接口式编程
+			ICommand icommand = session.getMapper(ICommand.class);
+			commandList = icommand.queryMessageList(command);
 		} catch (Exception e) {
 			// TODO: handle exception
 		} finally {

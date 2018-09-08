@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.imooc.sql.Command">
+<mapper namespace="com.imooc.dao.ICommand">
 	<!-- 修改数据 -->
 	<update id="update">
 		
@@ -26,7 +26,7 @@
 		<result column="description" jdbcType="VARCHAR" property="description"/>
 		<collection property="contentList" resultMap="com.imooc.sql.CommandContent.CommandContentResult"/>
 	</resultMap>
-	<!-- 查询message数据的select -->
+	<!-- 查询Command+Command_Content数据的select -->
 	<select id="queryMessageList" parameterType="com.imooc.bean.Command"  resultMap="CommandResult">
 		 select 
 			 cd.id          	AS      cd_id
