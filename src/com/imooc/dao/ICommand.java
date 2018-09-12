@@ -1,6 +1,7 @@
 package com.imooc.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.imooc.bean.Command;
 
@@ -14,5 +15,13 @@ public interface ICommand {
 	 * @param command
 	 * @return List<Command
 	 */
-	public List<Command> queryMessageList(Command command);
+	public List<Command> queryMessageList(Map<String,Object> paramter);
+
+	/**
+	 * 查询总条数
+	 * 
+	 * @param command
+	 * @return 总条数
+	 */
+	public int count(Command command);
 }

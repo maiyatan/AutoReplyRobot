@@ -1,6 +1,8 @@
 package com.imooc.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import com.imooc.bean.Command;
@@ -21,7 +23,7 @@ public class TalkService {
 		String content = null;
 		// 用户输入【帮助】
 		if ("帮助".equals(name)) {
-			List<Command> hellpList = commandDao.queryMessageList(null, null);
+			List<Command> hellpList = commandDao.queryMessageList(null);
 			StringBuffer result = new StringBuffer();
 			for (int i = 0; i < hellpList.size(); i++) {
 				if (i != 0) {
@@ -33,7 +35,11 @@ public class TalkService {
 			}
 			return result.toString();
 		}
-		List<Command> commandList = commandDao.queryMessageList(name, null);
+		Map<String,Object> paramter = new HashMap<String,Object>();
+		Command command=new Command();
+		command.setName(name);
+		paramter.put("command", command);
+		List<Command> commandList = commandDao.queryMessageList(paramter);
 		if (commandList.size() > 0) {
 			contentList = commandList.get(0).getContentList();
 			// 产生一个随机数

@@ -6,6 +6,26 @@
 		
 	</update>
 
+	<!-- 查询总条数 -->
+	<select id="count" parameterType="com.imooc.bean.Command"  resultType="int">
+		select 
+			count(*) <!-- count(distinct cd.name) -->
+		from 
+		 	command cd
+		 inner join  
+		 	command_content cc
+		 on 
+		 	cd.id=cc.command_id
+		 <where>
+			<if test="name !=null and !&quot;&quot;.equals(name.trim())">
+				and name=#{name}
+			</if>
+			<if test="description !=null and !&quot;&quot;.equals(description.trim())">
+				and description like '%' #{description} '%'
+			</if>
+		</where>
+	</select>
+
 	<!-- 批量删除command数据 -->
 	<delete id="deleteBatch"  parameterType="java.util.List" >
 		delete from command where id in
@@ -27,7 +47,7 @@
 		<collection property="contentList" resultMap="com.imooc.sql.CommandContent.CommandContentResult"/>
 	</resultMap>
 	<!-- 查询Command+Command_Content数据的select -->
-	<select id="queryMessageList" parameterType="com.imooc.bean.Command"  resultMap="CommandResult">
+	<select id="queryMessageList" parameterType="java.util.Map"  resultMap="CommandResult">
 		 select 
 			 cd.id          	AS      cd_id
 			,cd.name			AS		name
@@ -42,12 +62,14 @@
 		 on 
 		 	cd.id=cc.command_id
 		 <where>
-			<if test="name !=null and !&quot;&quot;.equals(name.trim())">
+			<if test="command.name !=null and !&quot;&quot;.equals(command.name.trim())">
 				and name=#{name}
 			</if>
-			<if test="description !=null and !&quot;&quot;.equals(description.trim())">
+			<if test="command.description !=null and !&quot;&quot;.equals(command.description.trim())">
 				and description like '%' #{description} '%'
 			</if>
 		</where>
+			<!--GROUP BY (cd_id)--><!--使用不了，结果为null-->
+			order by cd_id limit #{page.dbIndex},#{page.dbNumber} 
 	</select>
 </mapper>

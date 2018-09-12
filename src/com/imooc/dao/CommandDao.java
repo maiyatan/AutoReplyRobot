@@ -2,6 +2,8 @@ package com.imooc.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.imooc.bean.Command;
@@ -70,21 +72,18 @@ public class CommandDao {
 	 * @param name        指令名称
 	 * @param description 描述
 	 * @return
+	 * 
 	 */
-	public List<Command> queryMessageList(String name, String description) {
+	public List<Command> queryMessageList(Map<String,Object> paramter)  {
 		SqlSession session = null;
 		ConnDb connDb = new ConnDb();
 		List<Command> commandList = new ArrayList<Command>();
 		try {
-			// 将command和description放入message，作为参数传递给sql去处理
-			Command command = new Command();
-			command.setName(name);
-			command.setDescription(description);
 
 			session = connDb.getSqlSession();
 			// 使用接口式编程
 			ICommand icommand = session.getMapper(ICommand.class);
-			commandList = icommand.queryMessageList(command);
+			commandList = icommand.queryMessageList(paramter);
 		} catch (Exception e) {
 			// TODO: handle exception
 		} finally {
@@ -95,4 +94,28 @@ public class CommandDao {
 		return commandList;
 	}
 
+	/**
+	 * 查询总条数
+	 * 
+	 * @param command 指令名称
+	 * @return 总条数
+	 */
+	public int count(Command command) {
+		SqlSession session = null;
+		ConnDb connDb = new ConnDb();
+		int count = 0;
+		try {
+			session = connDb.getSqlSession();
+			// 使用接口式编程
+			ICommand icommand = session.getMapper(ICommand.class);
+			count = icommand.count(command);
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return count;
+	}
 }

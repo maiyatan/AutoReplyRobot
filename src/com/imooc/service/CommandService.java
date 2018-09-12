@@ -1,7 +1,11 @@
 package com.imooc.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.imooc.bean.Command;
+import com.imooc.bean.Page;
 import com.imooc.dao.CommandDao;
 
 /**
@@ -14,10 +18,20 @@ public class CommandService {
 	 * 
 	 * @return messageList
 	 */
-	public List<Command> queryMessageList(String name, String description) {
+	public List<Command> queryMessageList(String name, String description,Page page) {
+		Command command =new Command();
+		command.setName(name);
+		command.setDescription(description);
+		
 		CommandDao commandDao = new CommandDao();
-
-		List<Command> commandList = commandDao.queryMessageList(name, description);
+		// 查询总条数
+		int totalNumber = commandDao.count(command);
+		// 组织分页查询参数
+		page.setTotalNumber(totalNumber);
+		Map<String,Object> paramter = new HashMap<String,Object>();
+		paramter.put("command", command);
+		paramter.put("page", page);
+		List<Command> commandList = commandDao.queryMessageList(paramter);
 		return commandList;
 	}
 
